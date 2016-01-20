@@ -18,11 +18,26 @@
 \usepackage{framed}
 \usepackage{float}
 \usepackage{thmtools}
+\usepackage{hyperref}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{mdframed}
+\usepackage[retainorgcmds]{IEEEtrantools}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{color}
+\usepackage{soul}
+
+
 
 \definecolor{darkred}{rgb}{0.5,0.1,0.1}
 \definecolor{darkgreen}{rgb}{0,0.55,0.2}
 \hypersetup{colorlinks=true,urlcolor=darkred,linkcolor=darkred,citecolor=darkred}
 \definecolor{shadecolor}{rgb}{0.85,0.85,0.85}
+\definecolor{darkblue}{rgb}{0,0,0.5}
+\setulcolor{darkgreen}
 
 % Bibliography formatting
 \usepackage[bibstyle=authoryear-comp,labeldate=false,defernumbers=true,maxnames=20,firstinits=true,uniquename=init,dashed=false,backend=biber,sorting=none]{biblatex}
@@ -235,6 +250,14 @@
 \newcommand{\fixme}[1]{{\color{blue}{[#1]}}}
 
 
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}{Corollary}[theorem]
+\newtheorem{lemma}[theorem]{Lemma}
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+\newenvironment{remark}[1][Remark]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
+
 % \mathtoolsset{showonlyrefs}
 
 \bibliography{higgs-bundles}
@@ -251,8 +274,13 @@
 
 \section{Introductory motivation}
 
+\begin{definition}
+\label{reductive}
+In mathematics, a reductive group is an algebraic group $G$ over an algebraically closed field such that the unipotent radical of $G$ is trivial (i.e., the group of unipotent elements of the radical of $G$). 
+\end{definition}
+
 Suppose given a compact Riemann surface $C$
-of genus $g \ge 2$ and a compact reductive
+of genus $g \ge 2$ and a compact reductive (\ref{reductive})
 Lie group $G$, e.g. $G = U(1)$, $G = SU(2)$. 
 Built from these data there is a
 moduli space $$\cM = \cM^H(C,G)$$
@@ -266,12 +294,16 @@ It can be seen in various ways:
 (twisted) 
 reductive representations\footnote{``Reductive'' means the closure of 
 the image is a reductive subgroup of $G_\C$.}
-$\pi_1(C) \to G_\C$.
+$\pi_1(C) \ref{fundagr} \to G_\C$.
 e.g. for $g=2$ and $G = SU(2)$, 
 this means
 \begin{equation}
   \cM = \{ A_1,A_2,B_1,B_2 \in SL(2,\C): A_1 B_1 A_1^{-1} B_1^{-1} A_2 B_2 A_2^{-1} B_2^{-1} = \pm 1 \} / \sim
 \end{equation}
+\begin{definition}
+\label{fundagr}
+The fundamental group is a mathematical group associated to any given pointed topological space that provides a way to determine when two paths, starting and ending at a fixed base point, can be continuously deformed into each other.
+\end{definition}
 \item $\cM$ is the moduli space parameterizing (stable) \ti{flat $G_\C$-connections}
 over $C$. (Certain sheaves on this moduli space are 
 basic objects on ``$B$ side'' of the geometric Langlands correspondence.)
@@ -306,9 +338,9 @@ A partial answer comes from another structure $\cM$ carries, namely
 the \ti{\hk} structure. This says in short that $\cM$ has a 
 metric compatible with many
 different complex structures,
-fitting together in a specific way; thus $\cM$ gives rise to
+fitting together in a specific way; \ul{thus $\cM$ gives rise to
 many complex manifolds which look quite different from one
-another, but are nevertheless canonically diffeomorphic.
+another, but are nevertheless canonically diffeomorphic}.
 Loosely speaking, one complex structure comes from the Riemann 
 surface $C$, another comes from $G_\C$.
 An \hk structure is rather rigid and gives a lot of constraints, e.g.
@@ -340,10 +372,10 @@ good one is \cite{MR2093043}.
 In this section $X$ is a smooth manifold.
 
 \begin{defn}[Almost complex structure]
-An \ti{almost complex structure} on $X$ is a smooth section $I$ of $\End(TX)$ with $I^2 = -1$. An \ti{almost complex manifold} is a pair $(X,I)$ where $I$ is an almost complex structure.
-If $X$ has real dimension $2n$, an almost complex
-structure $I$ equips $TX$ with the structure of
-\ti{complex} vector bundle over $X$, of rank $n$,
+An \ti{almost complex structure} on $X$ is a smooth section $I$ of $\End(TX)$\footnote{$TX$ is the tangent bundle.} with $I^2 = -1$. An \ti{almost complex manifold} is a pair $(X,I)$ where $I$ is an almost complex structure.
+If $X$ has real dimension $2n$, \ul{an almost complex
+structure $I$ equips $TX$ with the structure of}
+\ti{complex} \ul{vector bundle\footnote{I think that the fibre of the bundle is the complex space now of dimension $n$ instead of $2n$ of the real space.} over $X$}, of rank $n$,
 and we say the \ti{complex dimension} $\dim_\C X$ is
 $n$.
 \end{defn}
@@ -351,7 +383,7 @@ $n$.
 \begin{example}[Flat complex space] $\C^n$ has a canonical almost complex structure $I$, as follows. Each tangent space $T_p \C^n \simeq \C^n$ canonically; $I$ is multiplication by $\I$, thought of as an 
 endomorphism of the underlying $2n$-dimensional real vector space.
 Writing $z_i = x_i + \I y_i$, and taking the coordinate basis
-$\{\partial_{x_1}, \partial_{x_2}, \dots, \partial_{x_n}, \partial_{y_1}, \partial_{y_2}, \dots, \partial_{y_n}\}$ for for $T_p \C^n$, $I$ is represented by the matrix
+$\{\partial_{x_1}, \partial_{x_2}, \dots, \partial_{x_n}, \partial_{y_1}, \partial_{y_2}, \dots, \partial_{y_n}\}$ for $T_p \C^n$, $I$ is represented by the matrix
 \begin{equation}
    I = \begin{pmatrix} {\bf 0}_{n \times n} & -{\bf 1}_{n \times n} \\ {\bf 1}_{n \times n} & {\bf 0}_{n \times n} \end{pmatrix}.
 \end{equation}
@@ -374,7 +406,7 @@ definition of holomorphic function (Cauchy-Riemann equations).
 or a \ti{complex structure}, if there is a covering of $X$ by open sets $U_\alpha$ with holomorphic diffeomorphisms $\phi_\alpha: U_\alpha \to V_\alpha \subset \C^n$ (where on $\C^n$ we take the
 canonical almost complex structure.) A \ti{complex manifold} is an almost complex manifold $(X,I)$ with $I$ integrable.
 \end{defn}
-
+Note: The almost complex structure doenot necessarilly mean the locally $\C^n$ manifold.  The complex structure (with integrable structure) gaurantees the locally $\C^n$ space.
 \begin{exercise} Show that \autoref{def:complex-structures} is equivalent to the usual definition of a complex manifold as a space
 $X$ with a covering by charts $\phi_\alpha: U_\alpha \to \C^n$, where the transition maps are holomorphic (obey Cauchy-Riemann equations).
 \end{exercise}
